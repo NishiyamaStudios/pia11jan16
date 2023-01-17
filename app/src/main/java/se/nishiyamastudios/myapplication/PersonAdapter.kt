@@ -13,10 +13,12 @@ class PersonAdapter : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val personName: TextView
+        val personNumber: TextView
 
         init {
 
             personName = view.findViewById(R.id.personNameTV)
+            personNumber = view.findViewById(R.id.personNumberTV)
 
         }
 
@@ -30,17 +32,28 @@ class PersonAdapter : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.person_item, parent, false)
 
         return ViewHolder(view)
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        Log.i("pia11debug","RITA RAD " + position.toString())
+
+        holder.personName.text = people[position]
+        holder.personNumber.text = position.toString()
+
+        holder.itemView.setOnClickListener() {
+
+            people.removeAt(position)
+            notifyDataSetChanged()
+
+        }
+
+
     }
 
     override fun getItemCount(): Int {
         return people.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("pia11debug","RITA RAD " + position.toString())
-
-        holder.personName.text = people[position]
-
     }
 
 }
